@@ -1,4 +1,4 @@
-version: "3.9"
+version: "4.3"
 
 services:
 
@@ -13,22 +13,21 @@ services:
   #       protocol: tcp
   #   restart: always  
 
+
 # FASTAPI
+
   data-fastapi:
     build:
       context: ./data-fastapi
-    # depends_on:
-    #   mysql-database:
-    #     condition: service_healthy
+    # Assurez-vous que le nom de l'image correspond au service
+    image: protojam-data-fastapi
     volumes:
-      - ./data:/app/fastapi
+      - ./data:/data-fastapi/app/
     tty: true
     ports:
-      # HTTP
-      - target: 8000
-        published: 8000
-        protocol: tcp        
-
+      # Vous pouvez utiliser la notation courte pour mapper les ports
+      - "8000:8000"  # Port local : Port dans le conteneur
+      
 # STREAMLIT
   data-streamlit:
     build:
